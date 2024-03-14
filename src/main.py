@@ -1,6 +1,6 @@
 import argparse
-from news_api_client import fetch_top_headlines, fetch_everything
-from cli_output import display_details, display_summary
+from src.news_api_client import fetch_top_headlines, fetch_everything
+from src.cli_output import display_details, display_summary
 
 def main():
     # argparse object handles command line args, description displayed on help option

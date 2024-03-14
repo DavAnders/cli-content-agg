@@ -1,6 +1,6 @@
 import requests
 from textblob import TextBlob
-from config import news_api, top_url, base_url
+from src.config import news_api, top_url, base_url
     
 def fetch_everything(query):
     params = {

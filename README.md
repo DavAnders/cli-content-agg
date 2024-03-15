@@ -1,7 +1,7 @@
-# Content Aggregator and Analyzer
+# Command Line News Content Aggregator and Analyzer
 **Note**: This project is split into two parts: the Python CLI tool (this repository) and the [Go API](https://github.com/DavAnders/cli-agg-api) for storing and processing articles. Please make sure to also check out the [Go API repository](https://github.com/DavAnders/cli-agg-api) for the complete functionality.
 
-This project is a Content Aggregator and Analyzer that fetches news articles using the NewsAPI and analyzes them for sentiment. It also provides the functionality to dump article data into a Go API.
+This project fetches news articles from NewsAPI and displays the subjectivity and polarity of the content. It also provides the functionality to dump article data into a Go API.
 
 ## Setup
 

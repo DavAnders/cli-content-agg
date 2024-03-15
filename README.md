@@ -3,6 +3,9 @@
 
 This project fetches news articles from NewsAPI and displays the subjectivity and polarity of the content. It also provides the functionality to dump article data into a Go API.
 
+## Why?
+There are a lot of news sources, and a lot of opinions. With this tool, you get to sidestep the tedium of manual searches and dive straight into understanding the vibe of the articles through sentiment analysis. Further insight into trends or other data manipulation can be done once an API is setup to receive the data.
+
 ## Setup
 
 ### Prerequisites

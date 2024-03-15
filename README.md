@@ -42,3 +42,59 @@ The CLI tool supports various flags to control its behavior:
 When fetching articles, the CLI tool automatically posts the article data to the specified Go API endpoint (`go_api_url` in `config.py`). Ensure your Go API is running and accessible for this feature to work.
 
 This setup requires the Go API part of the project to be properly configured and running. Please visit [the Go API repository](https://github.com/DavAnders/cli-agg-api) for instructions on setting up and running the Go API.
+
+## 🤝 Contributing
+
+### Clone the repo
+
+```bash
+git clone https://github.com/DavAnders/cli-content-agg
+cd cli-content-agg
+```
+
+### Set up virtual environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+```
+### Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Configuration
+
+```bash
+news_api = 'your_api_key_here'
+base_url = 'https://newsapi.org/v2/everything'
+top_url = 'https://newsapi.org/v2/top-headlines'
+go_api_url = 'http://localhost:8080/articles'
+```
+
+### Run the project
+
+```bash
+python -m src.main --query "your interest"
+```
+or for details:
+
+```bash
+python main.py --query "something_cool" --details
+```
+or for top headlines:
+
+```bash
+python main.py --top --country us --query "breaking_news"
+```
+
+### Run the tests
+
+```bash
+python -m unittest FILEPATH
+```
+
+### Submit a pull request
+
+If you'd like to contribute, please fork the repository and open a pull request to the `main` branch.

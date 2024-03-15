@@ -7,9 +7,9 @@ def main():
     parser = argparse.ArgumentParser(description="Content Aggregator and Analyzer")
 
     parser.add_argument('--query', type=str, help='Query term for fetching content')
-    # parser.add_argument('--lang', type=str, default='en', help='Language of the content (default is English)')
-    parser.add_argument('--country', type=str, default='us', help='Country code for articles')
+    parser.add_argument('--country', type=str, default='us', help='Country code for articles, used with --top')
     parser.add_argument('--top', action='store_true', help='Use the top-headlines endpoint')
+    parser.add_argument('--details', action='store_true', help='Prompt for more details after summary')
     args = parser.parse_args()
 
     if args.top:
@@ -22,15 +22,19 @@ def main():
         articles = fetch_everything(args.query)
 
     display_summary(articles)
-
-    try:
-        article_number = int(input("Enter article number for more details, or -1 to exit: ")) - 1
-        if 0 <= article_number < len(articles):
-            display_details(articles[article_number])
-        elif article_number != -1:
-            print("Invalid article number.")
-    except ValueError:
-        print("Please enter a valid number.")
+    
+    if args.details:
+        while True:
+            try:
+                article_number = int(input("Enter article number for more details, or -1 to exit: ")) - 1
+                if article_number == -2:
+                    break  # User chose to exit
+                if 0 <= article_number < len(articles):
+                    display_details(articles[article_number])
+                else:
+                    print("Invalid article number.")
+            except ValueError:
+                print("Please enter a valid number.")
         
 if __name__ == "__main__":
     main()

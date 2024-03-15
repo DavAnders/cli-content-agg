@@ -1,6 +1,7 @@
 import requests
 from textblob import TextBlob
-from src.config import news_api, top_url, base_url
+from datetime import datetime
+from src.config import news_api, top_url, base_url, go_api_url
     
 def fetch_everything(query):
     params = {
@@ -17,10 +18,10 @@ def fetch_everything(query):
             title = article.get('title', 'No title available')
             content = article.get('content', 'Content not available')
             url = article.get('url', 'URL not available')
-            published_at = article.get('publishedAt', 'Publication date not available')
+            published_at = article.get('publishedAt')
             description = article.get('description', 'No description available')
 
-            analysis_text = content if content else title # prefer sentiment analysis on content
+            analysis_text = content if content else title # Prefer sentiment analysis on content
             analysis = TextBlob(analysis_text)
             sentiment = analysis.sentiment
 
@@ -32,6 +33,7 @@ def fetch_everything(query):
                 'publishedAt': published_at,
                 'polarity': sentiment.polarity,
                 'subjectivity': sentiment.subjectivity,
+                'query': query
             })
     else:
         print(f"Failed to fetch articles. Status code: {response.status_code}")
@@ -54,7 +56,7 @@ def fetch_top_headlines(query, country='us'):
             title = article.get('title', '')
             content = article.get('content', 'Content not available')
             url = article.get('url', 'URL not available')
-            published_at = article.get('publishedAt', 'Date not available')
+            published_at = article.get('publishedAt')
 
             analysis_text = content if content else title
             analysis = TextBlob(analysis_text)
@@ -68,8 +70,18 @@ def fetch_top_headlines(query, country='us'):
                 'country': country,
                 'polarity': sentiment.polarity,
                 'subjectivity': sentiment.subjectivity,
+                'query': query
             })
         print(f"Returning {len(country_data)} articles in country_data.")
     else:
         print(f"Failed to fetch articles. Status code: {response.status_code}")
     return country_data
+
+def post_article_to_db(article):
+    url = go_api_url  # URL of your Go API endpoint
+    headers = {'Content-Type': 'application/json'}
+    response = requests.post(url, json=article, headers=headers)
+    if response.status_code == 201:
+        print("Article successfully saved to database.")
+    else:
+        print(f"Failed to save article. Status code: {response.status_code}, Response: {response.text}")

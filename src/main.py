@@ -1,5 +1,5 @@
 import argparse
-from src.news_api_client import fetch_top_headlines, fetch_everything
+from src.news_api_client import fetch_top_headlines, fetch_everything, post_article_to_db
 from src.cli_output import display_details, display_summary
 
 def main():
@@ -18,11 +18,15 @@ def main():
             print("Country code is required for top headlines.")
             return
         articles = fetch_top_headlines(args.query, args.country)
+        for article in articles:
+            post_article_to_db(article)
     else:
         articles = fetch_everything(args.query)
+        for article in articles:
+            post_article_to_db(article)
 
     display_summary(articles)
-    
+
     if args.details:
         while True:
             try:

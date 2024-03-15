@@ -25,7 +25,7 @@ top_url = 'https://newsapi.org/v2/top-headlines'
 
 # Go API endpoint
 go_api_url = 'http://localhost:8080/articles' # Update with your actual endpoint
-
+```
 ## Usage
 The CLI tool supports various flags to control its behavior:
 
